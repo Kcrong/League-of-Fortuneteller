@@ -9,7 +9,7 @@ Back Queue - Celery
 import re
 
 import requests
-import cell_parser
+import cell_func
 
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
@@ -88,7 +88,7 @@ class GameInfoParser:
 
             for cell in cells:
                 cell_type = cell['class'][0]
-                parse_func = getattr(cell_parser, cell_type + '_parser')
+                parse_func = getattr(cell_func, cell_type + '_parser')
 
                 # name, value = parse_func(cell)
                 # data_dict[name] = value
