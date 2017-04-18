@@ -110,8 +110,10 @@ class GameInfoParser:
             winner_table = table_wrapper.find('table', {'class': 'Result-WIN'})
             looser_table = table_wrapper.find('table', {'class': 'Result-LOSE'})
 
-            self.parse_team_info(winner_table)
-            self.parse_team_info(looser_table)
+            winner_info = self.parse_team_info(winner_table)
+            looser_info = self.parse_team_info(looser_table)
+
+            print(1)
 
 
 if __name__ == '__main__':
