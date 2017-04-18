@@ -104,7 +104,6 @@ class GameInfoParser:
         for game_id in self.games:
             game_info_url = self.ingame_info_url_format % (game_id, self.summonerId)
             soup = self.get_response_with_soup(game_info_url)
-            print(game_info_url)
             table_wrapper = soup.find('div', {'class': 'GameDetailTableWrap'})
 
             # Be careful with draw
