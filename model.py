@@ -21,7 +21,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 model = Sequential([
     Dense(64, input_dim=x.shape[1]),
     Activation('relu'),
-    Dense(4),
+    Dense(1),
     Activation('sigmoid')
 ])
 
