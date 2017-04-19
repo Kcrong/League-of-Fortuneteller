@@ -17,7 +17,11 @@ def SummonerSpell_parser(data):
 
 
 def KeystoneMastery_parser(data):
-    mastery = BeautifulSoup(data.find('img')['title'], 'lxml').find('b').text
+    try:
+        mastery = BeautifulSoup(data.find('img')['title'], 'lxml').find('b').text
+    except KeyError:
+        # No mastery
+        mastery = 'noMastery'
 
     return ['mastery'], [mastery]
 
