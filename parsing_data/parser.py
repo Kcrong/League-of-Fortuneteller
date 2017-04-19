@@ -6,6 +6,8 @@
 DB - SQLite3
 Back Queue - Celery
 """
+import csv
+
 import re
 
 import requests
@@ -13,6 +15,16 @@ from parsing_data import cell_func
 
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
+
+
+def run_once(f):
+    def wrapper(*args, **kwargs):
+        if not wrapper.has_run:
+            wrapper.has_run = True
+            return f(*args, **kwargs)
+
+    wrapper.has_run = False
+    return wrapper
 
 
 class GameInfoParser:
@@ -27,9 +39,13 @@ class GameInfoParser:
     def __init__(self, nickname, file):
         self.nickname = nickname
         if isinstance(file, str):
-            self.f = open(file, 'a', encoding='utf8')
+            self.file = open(file, 'a', encoding='utf8')
         else:
-            self.f = file
+            self.file = file
+
+        # will be initialize later
+        self.writer = None
+
         self.summonerId, self.games = self.get_summoner_id_and_games()
 
     @staticmethod
@@ -103,10 +119,23 @@ class GameInfoParser:
 
         return team_member_info_list
 
-    def save(self):
-        pass
+    @run_once
+    def init_csv_writer(self, key_list):
+        self.writer = csv.DictWriter(self.file, key_list)
+        self.writer.writeheader()
+
+    def save(self, data):
+        self.writer.writerows(data)
 
     def run(self):
+        def add_meta_info(info_dict_list, game_id, result):
+
+            for info_dict in info_dict_list:
+                info_dict['game_id'] = game_id
+                info_dict['result'] = result
+
+            return info_dict_list
+
         for game_id in self.games:
             game_info_url = self.ingame_info_url_format % (game_id, self.summonerId)
             soup = self.get_response_with_soup(game_info_url)
@@ -116,13 +145,16 @@ class GameInfoParser:
             winner_table = table_wrapper.find('table', {'class': 'Result-WIN'})
             looser_table = table_wrapper.find('table', {'class': 'Result-LOSE'})
 
-            winner_info = self.parse_team_info(winner_table)
-            looser_info = self.parse_team_info(looser_table)
+            winner_info = add_meta_info(self.parse_team_info(winner_table), int(game_id), 1)
+            looser_info = add_meta_info(self.parse_team_info(looser_table), int(game_id), 0)
 
-            self.save(game_id, winner_info, looser_info)
+            self.init_csv_writer(winner_info[0].keys())
+
+            self.save(winner_info)
+            self.save(looser_info)
 
 
 if __name__ == '__main__':
-    g = GameInfoParser('index0', file='output.csv')
+    g = GameInfoParser('달달한아침햇살', file='output.csv')
     g.run()
 
