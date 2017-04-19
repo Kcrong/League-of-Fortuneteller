@@ -9,7 +9,7 @@ Back Queue - Celery
 import re
 
 import requests
-import cell_func
+from parsing_data import cell_func
 
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
@@ -24,9 +24,12 @@ class GameInfoParser:
     summoner_info_url_format = urljoin(host, 'summoner/userName=%s')
     ingame_info_url_format = urljoin(host, 'summoner/matches/ajax/detail/gameId=%s&summonerId=%s')
 
-    def __init__(self, nickname):
+    def __init__(self, nickname, file):
         self.nickname = nickname
-
+        if isinstance(file, str):
+            self.f = open(file, 'a', encoding='utf8')
+        else:
+            self.f = file
         self.summonerId, self.games = self.get_summoner_id_and_games()
 
     @staticmethod
@@ -100,6 +103,9 @@ class GameInfoParser:
 
         return team_member_info_list
 
+    def save(self):
+        pass
+
     def run(self):
         for game_id in self.games:
             game_info_url = self.ingame_info_url_format % (game_id, self.summonerId)
@@ -113,11 +119,10 @@ class GameInfoParser:
             winner_info = self.parse_team_info(winner_table)
             looser_info = self.parse_team_info(looser_table)
 
-            print(1)
+            self.save(game_id, winner_info, looser_info)
 
 
 if __name__ == '__main__':
-    g = GameInfoParser('index0')
+    g = GameInfoParser('index0', file='output.csv')
     g.run()
 
-    print(1)
