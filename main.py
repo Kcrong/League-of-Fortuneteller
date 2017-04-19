@@ -1,7 +1,8 @@
 from parsing_data.parser import GameInfoParser
 
 if __name__ == '__main__':
-    nickname_list = ['달달한아침햇살']
+    with open('nickname_list.txt', 'r', encoding='utf8') as f:
+        nickname_list = f.read().splitlines()
 
     for nickname in nickname_list:
         print(f"{nickname} start!")
