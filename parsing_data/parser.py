@@ -142,9 +142,12 @@ class GameInfoParser:
             # Be careful with draw
             winner_table = table_wrapper.find('table', {'class': 'Result-WIN'})
             looser_table = table_wrapper.find('table', {'class': 'Result-LOSE'})
-
-            winner_info = add_meta_info(self.parse_team_info(winner_table), int(game_id), 1)
-            looser_info = add_meta_info(self.parse_team_info(looser_table), int(game_id), 0)
+            try:
+                winner_info = add_meta_info(self.parse_team_info(winner_table), int(game_id), 1)
+                looser_info = add_meta_info(self.parse_team_info(looser_table), int(game_id), 0)
+            except AttributeError:
+                # 무승부나 탈주일경우, 이 게임은 넘어감
+                continue
 
             self.init_csv_writer(winner_info[0].keys())
 
