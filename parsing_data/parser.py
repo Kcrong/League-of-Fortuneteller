@@ -18,12 +18,10 @@ from bs4 import BeautifulSoup
 
 
 def run_once(f):
-    def wrapper(*args, **kwargs):
-        if not wrapper.has_run:
-            wrapper.has_run = True
-            return f(*args, **kwargs)
+    def wrapper(self, *args, **kwargs):
+        if self.writer is None:
+            return f(self, *args, **kwargs)
 
-    wrapper.has_run = False
     return wrapper
 
 
@@ -157,4 +155,3 @@ class GameInfoParser:
 if __name__ == '__main__':
     g = GameInfoParser('달달한아침햇살', file='output.csv')
     g.run()
-
