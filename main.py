@@ -9,6 +9,6 @@ if __name__ == '__main__':
         g = GameInfoParser(nickname, file='output.csv')
         g.run()
 
-    # Remove duplicate data
-    from data_balancer.balancer import set_balance
-    set_balance('output.csv')
+        # Remove duplicate data
+        from data_balancer.balancer import set_balance
+        set_balance('output.csv')
