@@ -47,7 +47,12 @@ def KDA_parser(data):
 
     for info in data.find_all('span'):
         name_list.append(info['class'][0])
-        value_list.append(info.text)
+        try:
+            data = int(info.text)
+        except ValueError:
+            data = info.text
+
+        value_list.append(data)
 
     return name_list, value_list
 
