@@ -42,7 +42,7 @@ model.compile(
 )
 
 
-model.fit(x_train, y_train)
+model.fit(x_train, y_train, batch_size=5, nb_epoch=20, verbose=1)
 
 """
     ['champion_name', 'level', 'spell_1', 'spell_2', 'mastery',
