@@ -2,7 +2,6 @@ import pandas as pd
 
 from keras.layers import Dense, Activation
 from keras.models import Sequential
-from keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, Imputer, StandardScaler
 
