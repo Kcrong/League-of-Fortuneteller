@@ -29,7 +29,7 @@ X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
 model = Sequential([
-    Dense(64, input_dim=x.shape[1]),
+    Dense(26, input_dim=x.shape[1]),
     Activation('relu'),
     Dense(1),
     Activation('sigmoid')
