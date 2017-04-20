@@ -1,3 +1,17 @@
+"""
+Before use this script, you should make nickname list file.
+also, file name is must be "nickname_list.txt"
+
+format like
+[nickname_1]
+[nickname_2]
+
+Ex)
+kcr0ng
+lol_zzang
+달달한아침햇살
+"""
+
 from parsing_data.parser import GameInfoParser
 
 if __name__ == '__main__':
