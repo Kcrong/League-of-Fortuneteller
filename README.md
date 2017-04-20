@@ -57,7 +57,20 @@
 
 
 # Usage
-`make_data.py` is only for make training data. our repo has already good [train_data](https://github.com/Kcrong/League-of-Fortuneteller/blob/master/train_data/data.csv), so you can use it.    
+
+## Make training dataset
+`make_data.py` is only for make training data.  
+> *FYI, our repo has already good [train_data](https://github.com/Kcrong/League-of-Fortuneteller/blob/master/train_data/data.csv), so you can use it.*
+
+after make `nickname_list.txt` file with nickname list, run `make_data.py`.
+```bash
+(env3) $ python make_data.py
+```
+Then, if you see `train_data` folder, there will be two csv files. `computer_trainable.csv` and `human_readable.csv`.  
+you need `computer_trainable.csv`. so rename the `computer_trainable.csv` to `data.csv`.
+    
+ 
+## Train model
 `model.py` is our predict model.
 Just run `model.py`
 
