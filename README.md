@@ -54,3 +54,24 @@
 2230/2289 [============================>.] - ETA: 0s - loss: 0.1192 - acc: 0.9534
 2289/2289 [==============================] - 0s - loss: 0.1178 - acc: 0.9537   
 ```
+
+
+# Usage
+`make_data.py` is only for make training data. our repo has already good [train_data](https://github.com/Kcrong/League-of-Fortuneteller/blob/master/train_data/data.csv), so you can use it.    
+`model.py` is our predict model.
+Just run `model.py`
+
+```bash
+(env3) $ python model.py
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+Epoch 1/20
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+...
+...
+...
+```
+
+### Thanks
