@@ -13,7 +13,7 @@ import re
 TEAM_LIST = ['red_', 'blue_']
 
 
-def process(csv_name):
+def process(csv_name, output_name):
     train_data = pd.read_csv(csv_name, delimiter=',')
 
     changed_data_dict = defaultdict(dict)
@@ -75,7 +75,7 @@ def process(csv_name):
     # Grouping by each games
     train_data.groupby(['game_id', 'result']).apply(save_new_features_for_team)
 
-    writer = csv.DictWriter(open('output_train_format.csv', 'w', encoding='utf8'),
+    writer = csv.DictWriter(open(output_name, 'w', encoding='utf8'),
                             next(iter(changed_data_dict.values())).keys())
     writer.writeheader()
     writer.writerows(changed_data_dict.values())
