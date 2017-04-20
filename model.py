@@ -4,7 +4,7 @@ from keras.layers import Dense, Activation
 from keras.models import Sequential
 from keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, Imputer, StandardScaler
 
 train_data = pd.read_csv('./output_train_format.csv', delimiter=',')
 
@@ -17,6 +17,16 @@ result_encoder.fit(y)
 y = result_encoder.transform(y)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+
+# Data normalization
+imputer = Imputer(strategy='mean')
+imputer.fit(x_train)
+X_train = imputer.transform(x_train)
+X_test = imputer.transform(x_test)
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
 
 model = Sequential([
     Dense(64, input_dim=x.shape[1]),
