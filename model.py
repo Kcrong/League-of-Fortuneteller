@@ -5,7 +5,7 @@ from keras.models import Sequential
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, Imputer, StandardScaler
 
-train_data = pd.read_csv('./output_train_format.csv', delimiter=',')
+train_data = pd.read_csv('train_data/data.csv', delimiter=',')
 
 
 x = train_data[train_data.keys()[:-1]].values
