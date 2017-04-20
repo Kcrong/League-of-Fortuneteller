@@ -36,7 +36,7 @@ model = Sequential([
 ])
 
 model.compile(
-    optimizer=SGD(lr=1e-4),
+    optimizer='RMSprop',
     loss='binary_crossentropy',
     metrics=['acc']
 )
