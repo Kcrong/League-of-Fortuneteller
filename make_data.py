@@ -14,18 +14,22 @@ lol_zzang
 
 from parsing_data.parser import GameInfoParser
 
+
+PARSE_DATASET_FILENAME = 'train_data/human_readable.csv'
+AFTER_PROCESS_FILENAME = 'train_data/computer_trainable.csv'
+
 if __name__ == '__main__':
     with open('nickname_list.txt', 'r', encoding='utf8') as f:
         nickname_list = f.read().splitlines()
 
     for nickname in nickname_list:
         print(f"{nickname} start!")
-        g = GameInfoParser(nickname, file='output.csv')
+        g = GameInfoParser(nickname, file=PARSE_DATASET_FILENAME)
         g.run()
 
     # Remove duplicate data
     from data_balancer.balancer import set_balance
-    set_balance('output.csv')
+    set_balance(PARSE_DATASET_FILENAME)
 
     from preprocess import process
-    process('output.csv')
+    process(PARSE_DATASET_FILENAME, AFTER_PROCESS_FILENAME)
